@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 31 08:20:07 2018
+
+@author: Puneeth P
+"""
+
+from sklearn.cluster import KMeans 
+from sklearn import metrics
+import numpy as np 
+import matplotlib.pyplot as plt
+import csv
+data=[] 
+ydata=[] 
+with open("cluster.csv") as tsv: 
+    for line in csv.reader(tsv): 
+        data=[int(i) for i in line] 
+        print(data)
+        ydata=[10-int(i) for i in line]
+        print(ydata)
+x1 = np.array(data) 
+x2 = np.array(ydata) 
+print(x1)
+print(x2)
+plt.plot() 
+plt.xlim([0, 10])
+plt.ylim([0, 10]) 
+plt.title('Dataset') 
+plt.scatter(x1, x2) 
+plt.show()
+plt.plot() 
+X = np.array(list(zip(x1, x2))).reshape(len(x1), 2)
+print(X) 
+colors = ['b', 'g','r'] 
+markers = ['o', 'v', 's']
+K = 3 
+kmeans_model = KMeans(n_clusters=K).fit(X)
+#print(kmeans_model)
+plt.plot() 
+for i, l in enumerate(kmeans_model.labels_):
+    print(i,l)
+    plt.plot(x1[i], x2[i], color=colors[l], marker=markers[l],ls='None') 
+    plt.xlim([0, 10]) 
+    plt.ylim([0, 10])
